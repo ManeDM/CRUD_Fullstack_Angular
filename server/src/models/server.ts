@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import routeProduct from '../routes/products';
+import db from '../db/connection'
 
 class Server {
     private app: Application;
@@ -11,6 +12,7 @@ class Server {
         this.listen();
         this.midlewares(); 
         this.routes(); 
+        this.dbConnect();
     }
 
     listen(){
@@ -34,6 +36,16 @@ class Server {
         this.app.use(express.json());
     }
 
+    async dbConnect() {
+        try {
+            await db.authenticate();
+            console.log('Data Base Connected') 
+        } catch (error) {
+            console.log(error);
+            console.log('Error Triying to create a connection with the database')
+        }
+    }
+ 
 }
 
 export default Server;
