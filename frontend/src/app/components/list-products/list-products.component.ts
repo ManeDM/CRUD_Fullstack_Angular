@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/interfaces/product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-list-products',
@@ -8,16 +10,29 @@ import { Product } from 'src/app/interfaces/product';
 })
 export class ListProductsComponent {
   
-  listProducts: Product[] = [
-    { id: 1, name: 'Pepsi', description: 'Bebida azucarada', price: 5, stock: 200},
-    { id: 2, name: 'Costeña', description: 'Bebida alcoholica', price: 6, stock: 300},
-  ]
+  listProducts: Product[] = [ ]
+  loading: boolean = false;
 
-constructor () {}
+constructor (private _productService: ProductService, private toastr: ToastrService) {}
 
 ngOnInit(): void {
-
+  this.getListProducts();
 
 }
 
+getListProducts() {
+  this.loading = true
+  this._productService.getListProducts().subscribe((data: Product[]) => {
+    this.listProducts = data;
+    this.loading = false
+  })
+}
+
+deleteProduct (id: Number) {
+  this.loading = true;
+  this._productService.deleteProduct(id).subscribe(() => {
+    this.getListProducts();
+    this.toastr.warning('El producto ha sido eliminado con exito', 'Producto Eliminado')
+  })
+}
 }

@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from 'express';
+import cors from 'cors';
 import routeProduct from '../routes/products';
 import db from '../db/connection'
 
@@ -34,6 +35,10 @@ class Server {
     midlewares() {
         //Parseo del body
         this.app.use(express.json());
+
+        //cors
+
+        this.app.use(cors());
     }
 
     async dbConnect() {
