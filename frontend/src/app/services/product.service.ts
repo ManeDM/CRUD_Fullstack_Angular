@@ -29,4 +29,12 @@ export class ProductService {
    addProduct(product: Product): Observable<void> {
     return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`, product)
    }
+
+   getProduct(id: Number): Observable<Product> {
+    return this.http.get<Product>(`${this.myAppUrl}${this.myApiUrl}${id}`)
+   }
+
+   updateProduct(id: Number, product: Product): Observable<void> {
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, product )
+   }
 }
