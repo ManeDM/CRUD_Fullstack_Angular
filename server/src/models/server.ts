@@ -1,7 +1,9 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import routeProduct from '../routes/products';
-import db from '../db/connection'
+import routeUser from '../routes/user';
+import Product from './product';
+import User from './user';
 
 class Server {
     private app: Application;
@@ -29,7 +31,8 @@ class Server {
             })
         })
 
-        this.app.use('/api/products', routeProduct)
+        this.app.use('/api/products', routeProduct);
+        this.app.use('/api/users', routeUser );
     }
 
     midlewares() {
@@ -37,16 +40,16 @@ class Server {
         this.app.use(express.json());
 
         //cors
-
         this.app.use(cors());
     }
 
     async dbConnect() {
         try {
-            await db.authenticate();
+            await Product.sync()
+            await User.sync()
             console.log('Data Base Connected') 
         } catch (error) {
-            console.log(error);
+             console.log(error);
             console.log('Error Triying to create a connection with the database')
         }
     }
