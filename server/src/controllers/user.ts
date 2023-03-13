@@ -50,7 +50,7 @@ export const loginUser = async (req: Request, res: Response) => {
     }
     //validamos paswword
 
-    const passwordValid =   await bcrypt.compare(password, user.password)
+    const passwordValid = await bcrypt.compare(password, user.password)
     if(!passwordValid){
         return res.status(400).json({
             msg: "Wrong Password"
@@ -60,8 +60,7 @@ export const loginUser = async (req: Request, res: Response) => {
     //generamos Token
     const token = jwt.sign({
         username: username
-    }, process.env.SECRET_KEY || 'prueba1234');
+    }, process.env.SECRET_KEY || 'mane123');
 
-    res.json({token});
-
+        res.json(token)
 }

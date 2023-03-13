@@ -60,7 +60,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //generamos Token
     const token = jsonwebtoken_1.default.sign({
         username: username
-    }, process.env.SECRET_KEY || 'prueba1234');
-    res.json({ token });
+    }, process.env.SECRET_KEY || 'mane123');
+    res.json(token);
 });
 exports.loginUser = loginUser;

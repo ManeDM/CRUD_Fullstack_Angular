@@ -71,14 +71,14 @@ addProduct() {
     this._productService.updateProduct(this. id, product).subscribe(() => {
       this.toastr.info(`El producto ${product.name} fue actualizado con exito`, 'Producto Actualziado');
       this.loading = false;
-      this.router.navigate(['/']);
+      this.router.navigate(['/products']);
     })
   } else {
     //Agregar
     this._productService.addProduct(product).subscribe(() => {
       this.toastr.success(`El producto ${product.name} fue añadido con exito`, 'Producto Registrado');
       this.loading = false;
-      this.router.navigate(['/']);
+      this.router.navigate(['/products']);
   })
   }
 

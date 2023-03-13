@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,  HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -19,8 +19,11 @@ export class ProductService {
    }
 
    getListProducts(): Observable<Product[]> {
-   return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}`);
-   }
+    // const token = localStorage.getItem('token'); // Obtener el token desde el almacenamiento local
+    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // Agregar el token al encabezado
+    // return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}`, { headers: headers }); // Hacer la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}`)
+  }
 
    deleteProduct(id: Number): Observable<void> {
     return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}${id}`)

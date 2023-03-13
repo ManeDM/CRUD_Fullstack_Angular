@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 
 
 //MODULOS
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { ToastrModule } from 'ngx-toastr';
 
 //COMPONENTES
@@ -15,6 +15,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListProductsComponent } from './components/list-products/list-products.component';
 import { AddEditProductComponent } from './components/add-edit-product/add-edit-product.component';
 import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
+import { LoginComponent } from './components/login/login.component';
+import { SingInComponent } from './components/sing-in/sing-in.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { AddTokenInterceptor } from './utils/add-token.interceptor';
 
 
 @NgModule({
@@ -23,13 +27,17 @@ import { ProgressBarComponent } from './shared/progress-bar/progress-bar.compone
     NavbarComponent,
     ListProductsComponent,
     AddEditProductComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    LoginComponent,
+    SingInComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 3000,
@@ -38,7 +46,9 @@ import { ProgressBarComponent } from './shared/progress-bar/progress-bar.compone
     }),
 
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

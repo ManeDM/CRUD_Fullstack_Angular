@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction} from 'express'
-import  Jwt  from 'jsonwebtoken';
+import  jwt  from 'jsonwebtoken';
 
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
     const headerToken = req.headers['authorization']
@@ -8,7 +8,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
     //Ya tiene Token - Paso la validacion el IF
         try {
             const bearerToken = headerToken.slice(7);
-            Jwt.verify(bearerToken, process.env.SECRET_KEY || 'prueba1234')
+            jwt.verify(bearerToken, process.env.SECRET_KEY || 'prueba1234');
             next()
             
         } catch (error) {
